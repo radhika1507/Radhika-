@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media Edit Tracker</title>
+<style>
+  body { font-family: Arial, sans-serif; background:#f5f5f5; padding:20px;}
+  h1 { text-align:center; color:#333; }
+  table { width:100%; border-collapse: collapse; margin-top:20px; background:#fff;}
+  th, td { border:1px solid #ccc; padding:10px; text-align:left; }
+  th { background:#eee; }
+  input, select { padding:5px; margin:5px 0; width:100%; }
+  button { padding:10px 15px; margin-top:10px; background:#28a745; color:#fff; border:none; cursor:pointer; }
+  button:hover { background:#218838; }
+</style>
+</head>
+<body>
+
+<h1>Media Edit Tracker</h1>
+
+<h3>Add New Media</h3>
+<form id="mediaForm">
+  <input type="text" id="fileName" placeholder="File Name" required>
+  <select id="fileType">
+    <option value="Image">Image</option>
+    <option value="Video">Video</option>
+    <option value="PPT">PPT</option>
+  </select>
+  <input type="text" id="notes" placeholder="Required Edit / Notes">
+  <button type="submit">Add Media</button>
+</form>
+
+<table id="mediaTable">
+  <thead>
+    <tr>
+      <th>File Name</th>
+      <th>Type</th>
+      <th>Notes</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Media entries will appear here -->
+  </tbody>
+</table>
+
+<script>
+const form = document.getElementById('mediaForm');
+const tableBody = document.querySelector('#mediaTable tbody');
+
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+  const fileName = document.getElementById('fileName').value;
+  const fileType = document.getElementById('fileType').value;
+  const notes = document.getElementById('notes').value;
+  
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td>${fileName}</td>
+    <td>${fileType}</td>
+    <td>${notes}</td>
+    <td>
+      <select>
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Done">Done</option>
+      </select>
+    </td>
+  `;
+  tableBody.appendChild(row);
+
+  form.reset();
+});
+</script>
+
+</body>
+</html>
